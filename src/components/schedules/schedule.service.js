@@ -28,7 +28,7 @@ angular.module('schedules')
           console.error('server failed to return data');
         });
     };
-    this.getDaySchedule = function(){
+    this.getDaySchedule = function(qDate){
       return this.getCurrentRound()
         .then(function(response){
           return response.rows.map(function(row){
