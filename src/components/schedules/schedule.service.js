@@ -4,7 +4,8 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(user, couchdb, couchUtil){
+  .service('scheduleService', function(user, couchdb, couchUtil, facilityService){
+   console.log(facilityService.getByWard());
 
     this.all = function() {
       var params = {

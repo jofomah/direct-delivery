@@ -14,7 +14,8 @@ angular.module('directDelivery', [
     'packing',
     'packing.all',
     'packing.item',
-    'delivery'
+    'delivery',
+    'facilities'
   ])
   .run(function($rootScope, $state, AuthService) {
     $rootScope.$on('$stateChangeStart', function(event, toState) {

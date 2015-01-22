@@ -2,14 +2,39 @@
  * Created by ehealthafrica on 1/20/15.
  */
 
-angular.modular('facilities')
-  .service('facilityService', function(){
+angular.module('facilities')
+  .service('facilityService', function($http){
 
-    this.get = function(uuid){
-
+    var HFServer = 'http://dev.lomis.ehealth.org.ng:5984/facilities';
+    this._get = function(urlFraction){
+      var url = HFServer + urlFraction;
+      console.log(url);
+      return $http.get(url)
+        .then(function(response){
+          return response;
+        })
+        .catch(function(err){
+          console.err(err);
+        })
     };
-
+    this.getAll = function(){
+      var url = '/_design/facilities/_view/by_lga?include_docs=true';
+      return this._get(url)
+        .then(function(response){
+          return response.data.rows.map(function(row){
+            return row.doc;
+          });
+        })
+    };
     this.getByWard = function(wardId){
+      var url= '/_design/facilities/_view/by_ward?include_docs=true';
+      return this._get(url)
+        .then(function(response){
+          console.log(response);
+        })
+        .catch(function(err){
+          console.log(err);
+        })
 
     };
 
@@ -36,10 +61,9 @@ angular.modular('facilities')
         ref can be the reference facility uuid, in which the function expects a string input,
         or a coord ({long:"", lat: ""}), in which case the function expects a obj as input
         NB:: this might be unsuitable for devices and browsers considering the resources it might require to compute
-       */
+      */
     };
     this.set = function(data){
 
     };
-
   });
