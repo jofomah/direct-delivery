@@ -4,8 +4,11 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(user, couchdb, couchUtil, facilityService){
-   console.log(facilityService.getByWard());
+  .service('scheduleService', function(user, couchdb, couchUtil, facilityService, utility){
+    facilityService.getByZone('"07f03e8c40bc11e4b3c53ca9f44c7824"')
+     .then(function(response){
+       console.log(response);
+     });
 
     this.all = function() {
       var params = {
@@ -14,22 +17,18 @@ angular.module('schedules')
         reduce: false,
         include_docs: true
       };
-      var key = couchUtil.key(user.email +"-"+ moment().format("D-M-YYYY"));
+      var key = couchUtil.key(user.email +"-"+ utility.formatDate(new Date()));
       angular.extend(params, key);
       return couchdb.view(params).$promise;
-
     };
-     
+
     this.getCurrentRound = function(){
       return this.all()
         .then(function(response){
           return response;
-        })
-        .catch(function(){
-          console.error('server failed to return data');
         });
     };
-    this.getDaySchedule = function(qDate){
+    this.getDaySchedule = function(){
       return this.getCurrentRound()
         .then(function(response){
           return response.rows.map(function(row){
