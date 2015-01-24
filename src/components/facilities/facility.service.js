@@ -70,6 +70,12 @@ angular.module('facilities')
       */
     };
     this.set = function(data){
+      $http.post(HFServer, data)
+        .then(function(){
 
+        })
+        .catch(function(err){
+          console.log(err);
+        })
     };
   });
