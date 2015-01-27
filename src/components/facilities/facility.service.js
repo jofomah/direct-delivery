@@ -3,12 +3,10 @@
  */
 
 angular.module('facilities')
-  .service('facilityService', function($http){
+  .service('facilityService', function($http, dbService, pouchdbService){
 
-    var HFServer = 'http://dev.lomis.ehealth.org.ng:5984/facilities';
-    this._get = function(urlFraction){
-      var url = HFServer + urlFraction;
-      return $http.get(url)
+    this._get = function(view){
+      return dbService.queryView('')
         .then(function(response){
           return response;
         })
@@ -16,20 +14,17 @@ angular.module('facilities')
           console.err(err);
         })
     };
-    this._fetch = function(url){
-      return this._get(url)
+    this._fetch = function(viewName, params){
+      return dbService.queryView(viewName, params)
         .then(function(response){
-          return response.data.rows.map(function(row){
-            return row.doc;
-          });
+          return response;
         })
         .catch(function(err){
           console.log(err);
         })
     };
     this.getAll = function(){
-      var url = '/_design/facilities/_view/by_lga?include_docs=true';
-      return this._get(url)
+      return pouchdbService.query('facilities/by_id')
         .then(function(response){
           return response.data.rows.map(function(row){
             return row.doc;
@@ -38,18 +33,24 @@ angular.module('facilities')
     };
 
     this.getByWard = function(wardId){
-      var url= '/_design/facilities/_view/by_ward?include_docs=true&reduce=false&endkey='+wardId +'&startkey='+wardId;
-      return this._fetch(url);
+      return this._fetch("facilities/by_ward")
+        .then(function(response){
+          return response;
+        })
     };
 
     this.getByLga = function(lgaId){
-      var url = '/_design/facilities/_view/by_lga?include_docs=true&reduce=false&endkey='+lgaId +'&startkey='+lgaId;
-      return this._fetch(url);
+      return this._fetch("facilities/by_lga")
+        .then(function(response){
+          return response;
+        })
     };
 
     this.getByZone = function(zoneId){
-      var url = '/_design/facilities/_view/by_zone?include_docs=true&reduce=false&endkey='+zoneId +'&startkey='+zoneId;
-      return this._fetch(url);
+      return this._fetch("facilities/by_zone")
+        .then(function(response){
+          return response;
+        })
     };
 
     this.getChildFacilities = function(facilityId){
@@ -61,21 +62,11 @@ angular.module('facilities')
     this.getWithCF = function(){
 
     };
-    this.getByProximity = function(distance, ref){
-      /*
-        distance is the radius the search should cover in kilometers (km);
-        ref can be the reference facility uuid, in which the function expects a string input,
-        or a coord ({long:"", lat: ""}), in which case the function expects a obj as input
-        NB:: this might be unsuitable for devices and browsers considering the resources it might require to compute
-      */
-    };
-    this.set = function(data){
-      $http.post(HFServer, data)
-        .then(function(){
 
-        })
-        .catch(function(err){
-          console.log(err);
+    this.save = function(data){
+      dbService.save(data)
+        .then(function(response){
+          return response;
         })
     };
   });

@@ -101,4 +101,16 @@ angular.module('db')
         });
     };
 
+    /**
+     *  query views based on param if view exist
+     *
+     * @param string- view name, obj- query parameters in key/value pair
+     * @returns {$promise}
+     */
+    _this.queryView = function(viewName, params){
+      return pouchdbService.query(viewName, params)
+        .then(function(promise){
+          return promise;
+        })
+    }
   });

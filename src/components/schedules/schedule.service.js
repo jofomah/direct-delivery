@@ -4,12 +4,9 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(user, couchdb, couchUtil, facilityService, utility){
-    facilityService.getByZone('"07f03e8c40bc11e4b3c53ca9f44c7824"')
-     .then(function(response){
-       console.log(response);
-     });
+  .service('scheduleService', function(user, dbService, couchUtil, utility, facilityService){
 
+    facilityService.getByWard();
     this.all = function() {
       var params = {
         ddoc: 'daily-deliveries',
