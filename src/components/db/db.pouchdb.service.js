@@ -20,7 +20,10 @@ angular.module('db')
      * @returns {*}
      */
     this.create = function(dbName, opt){
-      var options = opt || { auto_compaction: true };
+      var options = opt || {
+          /*jshint camelcase:false */
+          auto_compaction: true
+        };
       if(hasWebSQL()){
         options.adapter = 'websql';
       }else{
