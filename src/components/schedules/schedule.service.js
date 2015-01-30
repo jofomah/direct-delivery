@@ -8,15 +8,10 @@ angular.module('schedules')
 
     facilityService.getByWard();
     this.all = function() {
-      var params = {
-        ddoc: 'daily-deliveries',
-        view: 'by-driver-date',
-        reduce: false,
-        include_docs: true
-      };
-      var key = couchUtil.key(user.email +"-"+ utility.formatDate(new Date()));
-      angular.extend(params, key);
-      return couchdb.view(params).$promise;
+      return dbService.queryView("deliveries/by-driver-date")
+        .then(function(response){
+          return response;
+        })
     };
 
     this.getCurrentRound = function(){

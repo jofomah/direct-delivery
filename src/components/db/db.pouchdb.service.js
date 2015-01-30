@@ -7,8 +7,7 @@
 angular.module('db')
   .service('pouchdbService', function($window, pouchDB, config){
 
-    var dbName = config.localDB;
-    var db;
+
 
     /**
      * we set default adapter to 'websql' because of the following:
@@ -35,19 +34,9 @@ angular.module('db')
       return new pouchDB(dbUrl, options)
     };
 
-    db = this.create(dbName);
-
-    this.createView = function(designDoc){
-      db.put(designDoc)
-        .then(function(response){
-          console.log(response);
-        })
-        .catch(function(err){
-          console.log(err);
-        })
-    };
-
     this.query = function(viewName, param){
+      var dbName = config.localDB;
+      var db = this.create(dbName);
       return db.query(viewName, param)
         .then(function(response){
           return response;

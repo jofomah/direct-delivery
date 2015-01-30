@@ -3,7 +3,7 @@
  */
 
 angular.module('facilities')
-  .service('facilityService', function($http, dbService, pouchdbService){
+  .service('facilityService', function(dbService){
 
     this._get = function(view){
       return dbService.queryView('')
@@ -24,7 +24,7 @@ angular.module('facilities')
         })
     };
     this.getAll = function(){
-      return pouchdbService.query('facilities/by_id')
+      return this._fetch('facilities/by_id')
         .then(function(response){
           return response.data.rows.map(function(row){
             return row.doc;
@@ -64,7 +64,7 @@ angular.module('facilities')
     };
 
     this.save = function(data){
-      dbService.save(data)
+     return dbService.save(data)
         .then(function(response){
           return response;
         })
