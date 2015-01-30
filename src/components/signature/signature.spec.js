@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('signPad', function () {
+describe('signPad', function () {
 
   var scope, html, signPadScope, signPad;
 
