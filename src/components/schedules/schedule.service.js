@@ -4,12 +4,15 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(user, couchdb, couchUtil, utility){
+  .service('scheduleService', function(user, couchdb, couchUtil, utility, dbService){
 
     this.all = function() {
       return dbService.queryView("deliveries/by-driver-date")
         .then(function(response){
           return response;
+        })
+        .catch(function(err){
+          console.log(err);
         })
     };
 
@@ -18,13 +21,4 @@ angular.module('schedules')
         .then(couchUtil.pluckDocs)
         .then(utility.first);
     };
-  });
-    this.getDaySchedule = function(){
-      return this.getCurrentRound()
-        .then(function(response){
-          return response.rows.map(function(row){
-            return row.doc;
-          })
-        });
-    }
   });

@@ -7,6 +7,12 @@
 angular.module('db')
   .service('pouchdbService', function($window, pouchDB, config){
 
+    // TODO: PouchDB should be able to detect supported adapters itself.
+    //       See item:1156
+    function hasWebSQL() {
+      return $window.openDatabase;
+    }
+
     /**
      * we set default adapter to 'websql' because of the following:
      * 1. it is fast and
