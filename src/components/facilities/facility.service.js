@@ -3,7 +3,7 @@
  */
 
 angular.module('facilities')
-  .service('facilityService', function(dbService){
+  .service('facilityService', function(dbService,couchUtil){
 
     this._get = function(view){
       return dbService.queryView('')
@@ -14,8 +14,11 @@ angular.module('facilities')
           console.err(err);
         })
     };
-    this._fetch = function(viewName, params){
-      return dbService.queryView(viewName, params)
+    this._fetch = function(viewName, param){
+
+      var params = couchUtil.key(params);
+      params.inlcude_docs = true;
+      return dbService.getView(viewName, params)
         .then(function(response){
           return response;
         })

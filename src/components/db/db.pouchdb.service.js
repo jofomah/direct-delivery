@@ -7,6 +7,8 @@
 angular.module('db')
   .service('pouchdbService', function($window, pouchDB, config){
 
+    var _this = this;
+
     // TODO: PouchDB should be able to detect supported adapters itself.
     //       See item:1156
     function hasWebSQL() {
@@ -21,13 +23,14 @@ angular.module('db')
      * @param dbName
      * @returns {*}
      */
-    this.create = function(dbName, opt) {
+    _this.create = function(dbName, opt) {
       var options = opt || {
         /*eslint-disable camelcase */
         /*jshint camelcase:false */
         auto_compaction: true
         /*eslint-enable camelcase */
       };
+
       if (hasWebSQL()) {
         options.adapter = 'websql';
       } else {
@@ -36,13 +39,21 @@ angular.module('db')
       return pouchDB(dbName, options);
     };
 
-    this.remote = function(dbUrl, options) {
+    _this.remote = function(dbUrl, options) {
       return pouchDB(dbUrl, options);
     };
 
-    this.query = function(viewName, param){
+    _this.getDesignDocs = function(db, ddIds) {
+      var options = {
+        keys: ddIds
+      };
+      db = _this.create(db);
+      return db.allDocs(options);
+    };
+
+    _this.query = function(viewName, param){
       var dbName = config.localDB;
-      var db = this.create(dbName);
+      var db = _this.create(dbName);
       return db.query(viewName, param)
         .then(function(response){
           return response;

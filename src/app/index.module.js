@@ -16,13 +16,17 @@ angular.module('directDelivery', [
     'packing.all',
     'packing.item',
     'delivery',
+    'loadingScreen',
+    'db',
+    'sync',
     'facilities'
   ])
-  .run(function($rootScope, $state, AuthService, $http, pouchdbService) {
+  .run(function($rootScope, $state, AuthService) {
     $rootScope.$on('$stateChangeStart', function(event, toState) {
       if (!AuthService.isLoggedIn && toState.name !== 'login') {
         $state.transitionTo('login');
         event.preventDefault();
       }
     });
+
   });

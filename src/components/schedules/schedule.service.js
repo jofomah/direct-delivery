@@ -6,8 +6,11 @@
 angular.module('schedules')
   .service('scheduleService', function(user, couchdb, couchUtil, utility, dbService){
 
+
     this.all = function() {
-      return dbService.queryView("deliveries/by-driver-date")
+      var params = couchUtil.key(user.email + "-"+ utility.formatDate(new Date()));
+      params.include_docs = true;
+      return dbService.getView("daily-deliveries/by-driver-date", params)
         .then(function(response){
           return response;
         })
