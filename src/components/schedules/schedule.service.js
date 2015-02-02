@@ -14,9 +14,6 @@ angular.module('schedules')
         .then(function(response){
           return response;
         })
-        .catch(function(err){
-          console.log(err);
-        })
     };
 
     this.getDaySchedule = function() {
