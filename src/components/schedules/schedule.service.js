@@ -4,9 +4,8 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(user, dbService, couchUtil, utility, facilityService){
+  .service('scheduleService', function(user, couchdb, couchUtil, utility){
 
-    facilityService.getByWard();
     this.all = function() {
       return dbService.queryView("deliveries/by-driver-date")
         .then(function(response){
@@ -14,12 +13,12 @@ angular.module('schedules')
         })
     };
 
-    this.getCurrentRound = function(){
+    this.getDaySchedule = function() {
       return this.all()
-        .then(function(response){
-          return response;
-        });
+        .then(couchUtil.pluckDocs)
+        .then(utility.first);
     };
+  });
     this.getDaySchedule = function(){
       return this.getCurrentRound()
         .then(function(response){

@@ -6,7 +6,7 @@
       "version": "1.0.0",
       "deliveryRoundID": "d8006b0524473a0a4a60b7749766a11e",
       "driverID": "abdullahi.ahmed@example.com",
-      "date": "2015-01-22",
+      "date": "2015-01-24",
       "facilityRounds": [
         {
           "drop": 1,
@@ -17,11 +17,13 @@
             "zone": "Nassarawa",
             "ward": "Nassarawa",
             "contact": "Anantu Bayati",
-            "phoneNo": "08035272613"
+            "phoneNo": "08035272613",
+            "hthfaCode": "KNS KKU GDW 101"
           },
           "status": "pending",
           "window": "",
-          "cancelReport": {},
+          "cancelReport": {
+          },
           "arrivedAt": "",
           "departedAt": "",
           "packedProduct": [
@@ -41,7 +43,24 @@
               "storageID": "product-storage/frozen"
             }
           ],
-          "survey": []
+          "facilityKPI": {
+            "outreachSessions": 0,
+            "notes": "",
+            "antigensKPI": [
+              {
+                "productID": "BCG",
+                "noImmuized": 0
+              },
+              {
+                "productID": "Men-A",
+                "noImmuized": 0
+              },
+              {
+                "productID": "OPV",
+                "noImmuized": 0
+              }
+            ]
+          }
         },
         {
           "drop": 2,
@@ -52,10 +71,12 @@
             "ward": "Ketawa",
             "lga": "Gezawa",
             "contact": "Tijjani Rabiu",
-            "phoneNo": "08052808146"
+            "phoneNo": "08052808146",
+            "hthfaCode": "KNS KNC BMI 103"
           },
           "status": "pending",
-          "cancelReport": {},
+          "cancelReport": {
+          },
           "arrivedAt": "",
           "departedAt": "",
           "packedProduct": [
@@ -75,7 +96,24 @@
               "storageID": "product-storage/frozen"
             }
           ],
-          "survey": []
+          "facilityKPI": {
+            "outreachSessions": 0,
+            "notes": "",
+            "antigensKPI": [
+              {
+                "productID": "BCG",
+                "noImmuized": 0
+              },
+              {
+                "productID": "Men-A",
+                "noImmuized": 0
+              },
+              {
+                "productID": "OPV",
+                "noImmuized": 0
+              }
+            ]
+          }
         },
         {
           "drop": 3,
@@ -86,10 +124,12 @@
             "zone": "Nassarawa",
             "contact": "Rabi Dahiru",
             "phoneNo": "07035243034",
-            "ward": "Gwammaja"
+            "ward": "Gwammaja",
+            "hthfaCode": "KNS DAL GMJ 101"
           },
           "status": "pending",
-          "cancelReport": {},
+          "cancelReport": {
+          },
           "arrivedAt": "",
           "departedAt": "",
           "packedProduct": [
@@ -109,7 +149,24 @@
               "storageID": "product-storage/frozen"
             }
           ],
-          "survey": []
+          "facilityKPI": {
+            "outreachSessions": 0,
+            "notes": "",
+            "antigensKPI": [
+              {
+                "productID": "BCG",
+                "noImmuized": 0
+              },
+              {
+                "productID": "Men-A",
+                "noImmuized": 0
+              },
+              {
+                "productID": "OPV",
+                "noImmuized": 0
+              }
+            ]
+          }
         }
       ],
       "packingList": [
