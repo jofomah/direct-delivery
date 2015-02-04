@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(user, dbService, couchUtil, utility) {
+  .service('scheduleService', function(user, dbService, couchUtil, utility, $q) {
 
     this.all = function() {
       //TODO: this should use Auth.currentUser.name see #item:1172
@@ -20,6 +20,11 @@ angular.module('schedules')
       //#see item:1173
       return this.all()
         .then(couchUtil.pluckDocs)
-        .then(utility.first);
+        .then(function(docs){
+          if(docs.length === 0){
+            return $q.reject({ code: 404, msg: 'No document found'});
+          }
+          return utility.first(docs);
+        });
     };
   });
