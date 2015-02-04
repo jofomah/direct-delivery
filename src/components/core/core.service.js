@@ -11,7 +11,6 @@ angular.module('core')
 
     var _this = this;
     var isReplicationFromInProgress = false;
-    var isSyncingUp = false;
     var replication;
 
     function turnOffReplicateFromInProgress() {
