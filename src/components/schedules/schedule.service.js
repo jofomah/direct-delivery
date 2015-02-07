@@ -4,22 +4,22 @@
 'use strict';
 
 angular.module('schedules')
-  .service('scheduleService', function(user, dbService, couchUtil, utility) {
+  .service('scheduleService', function(AuthService, dbService, pouchUtil, utility) {
 
-    this.all = function() {
-      //TODO: this should use Auth.currentUser.name see #item:1172
-      var params = couchUtil.key(user.email + '-' + utility.formatDate(new Date()));
+    this.all = function(driverID, deliveryDate) {
+      driverID = driverID || AuthService.currentUser.name;
+      deliveryDate = deliveryDate || new Date();
+
+      var params = pouchUtil.key(driverID + '-' + utility.formatDate(deliveryDate));
       /*eslint-disable camelcase */
       params.include_docs = true;
       /*eslint-enable camelcase */
       return dbService.getView('daily-deliveries/by-driver-date', params);
     };
 
-    this.getDaySchedule = function() {
-      //TODO: this take a driverId(Auth.currentUser.name/email) and date parameter.
-      //#see item:1173
-      return this.all()
-        .then(couchUtil.pluckDocs)
+    this.getDaySchedule = function(driverID, date) {
+      return this.all(driverID, date)
+        .then(pouchUtil.pluckDocs)
         .then(utility.first);
     };
   });
