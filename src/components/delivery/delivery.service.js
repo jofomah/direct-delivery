@@ -99,4 +99,9 @@ angular.module('delivery')
       return facRnd;
     };
 
+    _this.shouldHideSignOff = function(facilityRnd){
+      return ((facilityRnd.status === DELIVERY_STATUS.SUCCESS_FIRST) ||
+        (facilityRnd.status === DELIVERY_STATUS.SUCCESS_SECOND));
+    };
+
   });
